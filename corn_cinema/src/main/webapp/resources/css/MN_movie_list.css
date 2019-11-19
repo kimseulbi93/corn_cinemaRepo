@@ -1,0 +1,169 @@
+ /* 전체 div */
+.movie-list-board-cinema{ 
+  line-height: 1.6em;  /* 줄간격 */
+  width: 1150px;
+  margin: 120px auto;
+  text-align: center;
+
+}
+ /* 전체 div */
+
+/* 검색  */
+.top-menu-wrapper{
+  text-align: right;
+  vertical-align: middle;  /* 수직 정렬 */
+
+  width: 89%;
+  margin-top: 55px;
+}
+
+.search-wrapper{
+  display: inline-block;
+
+  text-align: right;
+}
+
+.search-wrapper  input {
+  height: 25px;
+  width: 240px;
+}
+.search-wrapper select{
+  height:30px;
+
+  background-color: gray;
+  color: white;
+  border-radius: 7px 7px 7px 7px / 7px 7px 7px 7px;
+	border: none;
+/*   border-style: none; */
+}
+.search-wrapper > button{ 
+
+  margin-left: -5px;
+
+  border-style: none;
+  
+  background-color: rgba(255,255,255, 0.5);
+  line-height: 30px !important;
+
+  width: 30px;
+  height: 33px;
+
+}
+.search-wrapper button > img{ 
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+
+}
+
+/* --검색  */
+
+
+.screening-list{
+   font-size: 20pt;
+   width:500px; 
+   height:50px;
+}
+.thead-movie-board{
+  background-color: rgb(124, 124, 124);
+  color :rgb(243, 243, 243)
+}
+.thead-movie-board tr th{
+ 
+  border-top: 2px solid gray;
+  background-color: white;
+  color: black;
+
+  height: 40px;
+
+  text-align: left;
+  padding : 6px 0px 6px 10px;
+
+}
+.movie-board-table{
+  table-layout:fixed; 
+  width: 80%;
+}
+.movie-board-table, .movie-board-table th, .movie-board-table td{
+ 
+  margin: 10px auto 0px auto;
+  border-bottom: #d9d9d9 solid 1px;
+  border-collapse: collapse;
+  text-align: left;
+
+  padding : 5px 0px 5px 10px;
+
+ /*  width: 100%; */
+   overflow: hidden;
+  text-overflow: ellipsis;
+ white-space:nowrap;
+  
+}
+
+
+
+ /* --무비 등록 버튼-- */
+ .movie-reg-button-wrapper{ 
+  text-align: right;
+  width: 89%;
+}
+
+.movie-reg-button-wrapper > button{ 
+
+  border-style: none;
+  background-color: white;
+
+  text-align: center;
+  width: 60px;
+  height: 30px;
+
+  margin-top: 5px;
+  margin-left: 10px;
+
+  background-color: #797979;
+  color: white;
+
+  line-height: 21px !important;
+  
+}
+/* --무비 등록 버튼-- */
+
+/* 바디 본문  */
+
+
+/* 바디 본문  */
+
+
+/* 하단 페이징 처리 */
+
+a:link {
+  text-decoration: none; /*  하이퍼링크 밑줄 표시 없애기*/
+}
+
+.movie-board-bottom{
+  margin-top: 25px;
+}
+
+.movie-board-bottom > a {
+  border: #e6e6e6 solid 1px; 
+  font-size: 14px;
+  color: #201f2d;
+
+  min-width: 26px;
+  margin: 0 5px;
+  padding: 5px;
+
+  text-align: center;
+  line-height: 38px;
+}
+
+.movie-board-bottom a:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+.movie-board-bottom a:active {
+  background-color: rgb(119, 119, 119);
+  color: white;
+}
+/* 하단 페이징 처리 */
+

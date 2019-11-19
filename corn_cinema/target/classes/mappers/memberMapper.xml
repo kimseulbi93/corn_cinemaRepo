@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="com.acorn.mapper.MemberMapper">
+  
+  	   
+  <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  CRUD  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+ 	
+  
+	   
+	 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡinsert Memberㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+	  <insert id="insertMember"  parameterType="com.acorn.domain.MemberVo">
+	     insert into corn_movie.tbl_member (
+	       id, password, name, email
+	     ) values(
+	      #{id}, #{password}, #{name},#{email}
+	      )
+	  </insert>
+	     
+    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡudate Memberㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->    
+	 <update id="updateProfile">
+	    update tbl_member set
+        password = #{password}, 
+        updatedate = now()
+        WHERE id =#{id}          
+    </update>
+
+    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡdelete Memberㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->   
+
+   <delete id="deleteProfile">
+	   DELETE FROM tbl_member WHERE id = #{id} and password = #{password}
+   </delete>
+    
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡlogin Checkㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+		   
+	 <select id="login" resultType="com.acorn.domain.MemberVo">    <!-- resultType -> UserVO 풀패키지명 -->
+  
+      SELECT * FROM tbl_member WHERE id= #{id} and password = #{password}
+          
+     </select>	   
+
+	 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ id Ckeck(id 중복검사)ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+    
+     <select id= "idCheck" parameterType="string" resultType="int">
+         SELECT count(*) from tbl_member where id=#{user_id}
+     </select>
+        
+     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ email Ckeck(email 중복검사)ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+     
+     <select id= "emailCheck" parameterType="string" resultType="int">
+          SELECT count(*) from tbl_member where email=#{user_email}
+     </select>
+     
+     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ reset Pw(임시 비밀번호받기위한 check)ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+     
+     <select id="update_ResetPw" parameterType="string" resultType="int">
+              SELECT count(*) from tbl_member where id=#{id} and email=#{email}
+     </select>
+     
+     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ사용자가 로그인한시간 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+     <update id ="loginTimeCheck">
+             UPDATE tbl_member
+			 SET connection_time = now()
+			 where id = #{id}
+     </update> 
+     
+      <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ사용자가 로그아웃한 시간 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+     <update id ="logOutTimeCkeck">
+             UPDATE tbl_member
+			 SET disconnected_time = now()
+			 where id = #{id}
+     </update>      
+     
+     
+     
+    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ마이페이지ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+ 	
+   	<!-- 예매번호 출력 -->
+  	
+<resultMap id ="reserve" type ="com.acorn.domain.MypageVO">
+       <result column="reservation_num" property="reservation_num"/>
+       <result column="DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분')" property="movie_start_time"/>
+       <result column="title" property="title"/>
+       <result column="local_info_dist" property="local_info_dist"/>
+       <result column="DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분')" property="reservation_date"/>
+       <result column="seat_location" property="seat_location"/>
+    </resultMap> 
+    
+    <select id ="selectReservation" 
+      parameterType = "com.acorn.model.LoginDTO"
+      resultMap="reserve">
+      
+	  select 
+         tbl_reservation.reservation_num, 
+         DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분'),
+         tbl_movie.title, tbl_cinema.local_info_dist, 
+         DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분'), tbl_reservation.seat_location
+      from 
+         tbl_reservation left join tbl_movie
+         on tbl_reservation.movie_num=tbl_movie.movie_num
+         left join tbl_screening
+         on tbl_reservation.screening_num=tbl_screening.screening_num
+         left join tbl_cinema
+         on tbl_screening.cinema_num = tbl_cinema.cinema_num
+	
+      where 
+         tbl_reservation.id=#{id}
+      ORDER BY 
+      	 reservation_date desc;
+   </select>
+     
+ 
+     
+    <delete id="deleteBooking">
+    
+		delete from tbl_reservation where reservation_num=#{reservation_num};
+		
+   </delete>
+   
+   
+    <resultMap id ="reserveOk" type ="com.acorn.domain.MypageVO">
+       <result column="reservation_num" property="reservation_num"/>
+       <result column="DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분')" property="movie_start_time"/>
+       <result column="title" property="title"/>
+       <result column="local_info_dist" property="local_info_dist"/>
+       <result column="DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분')" property="reservation_date"/>
+       <result column="seat_location" property="seat_location"/>
+    </resultMap> 
+    
+    <select id ="selectReservationOk" 
+      parameterType = "com.acorn.model.LoginDTO"
+      resultMap="reserveOk">
+        <![CDATA[
+ 	select tbl_reservation.reservation_num, 
+         DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분'),
+         tbl_movie.title, tbl_cinema.local_info_dist, 
+         DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분'), tbl_reservation.seat_location
+      from 
+         tbl_reservation left join tbl_movie
+         on tbl_reservation.movie_num=tbl_movie.movie_num
+         left join tbl_screening
+         on tbl_reservation.screening_num=tbl_screening.screening_num
+         left join tbl_cinema
+         on tbl_screening.cinema_num = tbl_cinema.cinema_num
+      where 
+         tbl_reservation.id=#{id} and tbl_screening.movie_start_time > DATE_SUB(NOW(), INTERVAL 20 minute)
+      ORDER BY 
+      	 reservation_date desc;
+   ]]>
+   </select>
+   
+   
+   <resultMap id ="reserveNOk" type ="com.acorn.domain.MypageVO">
+       <result column="reservation_num" property="reservation_num"/>
+       <result column="DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분')" property="movie_start_time"/>
+       <result column="title" property="title"/>
+       <result column="local_info_dist" property="local_info_dist"/>
+       <result column="DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분')" property="reservation_date"/>
+       <result column="seat_location" property="seat_location"/>
+    </resultMap> 
+    
+    <select id ="selectReservationNOk" 
+      parameterType = "com.acorn.model.LoginDTO"
+      resultMap="reserveNOk">
+        <![CDATA[
+     
+              select tbl_reservation.reservation_num, 
+         DATE_FORMAT(tbl_screening.movie_start_time, '%Y년 %m월 %d일 %H시 %i분'),
+         tbl_movie.title, tbl_cinema.local_info_dist, 
+         DATE_FORMAT(tbl_reservation.reservation_date, '%Y년 %m월 %d일 %H시 %i분'), tbl_reservation.seat_location
+      from 
+         tbl_reservation left join tbl_movie
+         on tbl_reservation.movie_num=tbl_movie.movie_num
+         left join tbl_screening
+         on tbl_reservation.screening_num=tbl_screening.screening_num
+         left join tbl_cinema
+         on tbl_screening.cinema_num = tbl_cinema.cinema_num
+	
+      where 
+         tbl_reservation.id=#{id} and tbl_screening.movie_start_time < now()
+      ORDER BY 
+      	 reservation_date desc;
+   ]]>
+   </select>
+   
+   <select id= "MemberBoardList"  parameterType="com.acorn.model.PageDTO" resultType="com.acorn.domain.MemberBoardVO">
+       select 
+             id,
+             name,
+             email,
+             regdate,
+             updatedate,  
+             connection_time,  
+          
+       from 
+         tbl_member
+       where id like concat('%',#{keyword},'%')
+       ORDER BY id asc
+       limit #{pageStart}, 10
+    </select>
+     
+    <select id="getMemberListCount" parameterType="com.acorn.model.PageDTO" resultType="int">
+		select count(id) from tbl_member 
+		where id like concat('%',#{keyword},'%')   	
+    </select> 
+    
+    
+    
+    <select id = "MemberBoardOne" parameterType="String" resultType="com.acorn.domain.MemberBoardVO">
+     
+          select 
+             id,
+             name,
+             email,
+             regdate,
+             updatedate,  
+             connection_time,  
+             disconnected_time            
+         from 
+         tbl_member 
+         where id = #{member.id}
+    </select>
+
+    
+  </mapper>

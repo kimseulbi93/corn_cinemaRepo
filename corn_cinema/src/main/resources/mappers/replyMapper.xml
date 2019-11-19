@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.mapper.ReplyMapper">
+
+
+ <!--  댓글 목록  -->
+   <select id="replyList" 
+   	resultType="com.acorn.domain.MemberReplyJoinResultVO">
+   
+      SELECT
+         member.id,
+         member.name,
+         comm.movie_num,
+         comm.comment,
+         comm.score,
+         CAST(DATE_FORMAT(comm.regdate, '%Y.%m.%d') AS CHAR(19) ) AS regdate,
+         CAST(DATE_FORMAT(comm.updatedate, '%Y.%m.%d') AS CHAR(19) ) AS updatedate
+
+      FROM
+         tbl_member as member INNER JOIN tbl_comments as comm
+      ON 
+         member.id = comm.id
+      WHERE 
+      	comm.movie_num = #{movie.movie_num}
+      ORDER BY 
+      	regdate DESC
+   </select>
+   
+   
+    <!--  댓글 등록 -->
+   <insert id = "replyCreate" 
+   	parameterType = "com.acorn.domain.MemberReplyJoinResultVO">
+      insert into
+          tbl_comments ( id, movie_num, comment, score )
+      values ( #{id}, #{movie_num}, #{comment}, #{score} )
+   </insert>
+   
+   
+    <!--  댓글 수정 -->
+   <update id="replyUpdate" 
+   	parameterType="com.acorn.domain.MemberReplyJoinResultVO">
+      UPDATE tbl_comments 
+      SET 
+         comment = #{comment},
+         score = #{score},
+          updatedate = NOW()
+      WHERE
+         movie_num = #{movie_num} and id = #{id}
+       ORDER BY regdate DESC
+   </update>
+   
+   
+  <!--  댓글 삭제 -->
+   <delete id = "replyDelete"  parameterType= "String">
+      delete 
+         from tbl_comments
+      where 
+         id = #{id}
+   
+   </delete>
+
+</mapper>

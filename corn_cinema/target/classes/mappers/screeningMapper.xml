@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.acorn.mapper.Screening">
+
+
+
+   <select id="showtitle"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select distinct title
+      from
+      tbl_screening JOIN tbl_movie
+      on(tbl_screening.movie_num = tbl_movie.movie_num)
+      where
+      tbl_screening.is_screening=#{is_screening};
+   </select>
+
+   <select id="showcity"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select distinct
+      local_info_city
+      from
+      tbl_cinema join
+      tbl_screening
+      on( tbl_cinema.cinema_num = tbl_screening.cinema_num)
+      where
+      movie_num=#{movieNum};
+
+   </select>
+
+   <select id="showdist"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select 
+      	distinct
+      	local_info_dist
+      from
+      	tbl_cinema join
+      	tbl_screening
+      on( tbl_cinema.cinema_num = tbl_screening.cinema_num)
+      where
+      	movie_num=#{movieNum} and
+      	local_info_city=#{infoCity};
+
+   </select>
+
+   <select id="showdate"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select distinct
+      DATE_FORMAT(movie_start_time, '%Y-%m-%d')
+      STARTDATE
+      from
+      tbl_cinema join tbl_screening
+      on( tbl_cinema.cinema_num =
+      tbl_screening.cinema_num)
+      where
+      movie_num=#{movieNum} and
+      local_info_city=#{infoCity} and
+      local_info_dist=#{infoDist}
+      and movie_start_time > now()
+      ;
+
+   </select>
+
+   <select id="showtime"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select distinct
+      DATE_FORMAT(movie_start_time, '%H시%i분') STARTTIME
+      from
+      tbl_cinema join tbl_screening
+      on( tbl_cinema.cinema_num =
+      tbl_screening.cinema_num)
+      where
+      movie_num = #{movieNum} and
+      local_info_city = #{infoCity} and
+      local_info_dist = #{infoDist} and
+      DATE_FORMAT(movie_start_time, '%Y-%m-%d') =${startTime}
+      and movie_start_time > now()
+      ;
+
+   </select>
+
+
+   <!-- 남아있는 좌석 보여줌 -->
+   <select id="showseat"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+   <![CDATA[
+   
+   select 
+     seat_num 
+   from 
+      tbl_seat 
+   where 
+      tbl_seat.cinema_num=(
+          select
+               tbl_cinema.cinema_num
+            from
+               tbl_cinema
+            where 
+               local_info_city=#{infoCity} and 
+               local_info_dist=#{infoDist}
+         ) && tbl_seat.seat_num
+   NOT IN(
+      select 
+         seat_location
+      from 
+         tbl_reservation
+      where 
+         screening_num =(
+            select 
+               screening_num
+            from tbl_cinema join tbl_screening
+            on
+               (tbl_cinema.cinema_num = tbl_screening.cinema_num)
+            where 
+               movie_num=#{movieNum} 
+                  and local_info_city=#{infoCity}
+                  and local_info_dist=#{infoDist}
+               and DATE_FORMAT(movie_start_time, '%Y-%m-%d %H시%i분') =${startTime}   
+          )
+   );
+   ]]>
+   </select>
+
+
+   <select id="selectScreeningnum"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">        
+           select 
+            screening_num
+         from tbl_cinema join tbl_screening
+         on
+            (tbl_cinema.cinema_num = tbl_screening.cinema_num)
+         where 
+            movie_num=#{movieNum} 
+            and local_info_city=#{infoCity}
+            and local_info_dist=#{infoDist}
+            and DATE_FORMAT(movie_start_time, '%Y-%m-%d %H시%i분') =${startTime};           
+         
+   </select>
+
+   <select id="showtotalseat"
+      parameterType="com.acorn.domain.BookingDTO"
+      resultType="java.lang.String">
+
+      select seat_num
+      from tbl_seat
+      where tbl_seat.cinema_num = (
+      select
+      tbl_cinema.cinema_num
+      from
+      tbl_cinema
+      where
+      local_info_city=#{infoCity} and local_info_dist=#{infoDist}
+      );
+
+   </select>
+
+
+   <insert id="InsertReservation"
+      parameterType="com.acorn.domain.ReservationVO">
+
+      insert into
+         tbl_reservation(reservation_num, movie_num, id, screening_num, seat_location)
+      values(
+         #{reservation_num},
+         #{movie_num},
+         #{id},
+         #{screening_num},
+         #{seat_location});
+   
+   </insert>
+</mapper>

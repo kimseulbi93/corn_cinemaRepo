@@ -1,0 +1,50 @@
+.notice-area{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.notice-top{
+    margin-top: 70px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.board_view_area{
+    width: 1000px;
+    margin: 40px 0;
+    text-align: left;
+    border-bottom: 1px solid black;
+
+}
+.view-area{
+    font-size: 17px;
+    font-style: normal;
+    min-height: 230px;
+    padding-top: 20px;
+}
+
+.top-title-faq{
+    overflow: hidden;
+    padding: 11px;
+    border-top: solid 1px;
+    background-color: rgb(228, 228, 228)
+}
+
+.title{
+    float: left;
+    font-size: 15px;
+}
+
+.stit-area{
+    float: right;
+}
+
+.regist-day{
+  margin-right: 10px;
+}
+
+
+.notice-button-wrap{
+    margin-bottom: 50px;
+    text-align: right;
+}

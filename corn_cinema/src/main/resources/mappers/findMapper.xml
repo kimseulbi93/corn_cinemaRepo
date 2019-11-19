@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace ="com.acorn.mapper.FindMapper">
+ 
+ 
+	 
+   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡfind id ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+	 
+   <select id="findId"  resultType="string" parameterType="com.acorn.domain.MemberVo">
+	  
+	   SELECT id	
+	  FROM tbl_member
+	  WHERE name = #{name} AND email = #{email}
+
+   </select>
+	   
+   <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡfind password ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
+  
+       <select id="findPw"  resultType="string" parameterType="com.acorn.domain.MemberVo">
+	  
+		SELECT password	
+		FROM tbl_member
+		WHERE id = #{id} AND email = #{email}
+
+	  </select>
+	   
+    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡupdate password ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+     
+    <update id="updatePw">
+       
+	  update tbl_member set
+	  password= #{password}
+	  WHERE id= #{id} AND email= #{email} 
+     
+    </update>
+	 	   
+	   
+</mapper>

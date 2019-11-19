@@ -1,0 +1,89 @@
+/* 영화 수정 페이지 타이틀  */
+
+.mn-movie-modify-board-title{
+  margin: 60px 0px 40px 0px;
+  font-size: 25px;
+}
+
+/* //영화수정 페이지 타이틀  */
+
+
+ /* 테이블  */
+ .mn-movie-modify-table{
+    line-height: 1.5em;
+    width: 750px;
+    margin :0 auto;
+    text-align: right;
+ }
+
+.modify-search-grade {
+    width: 671px;
+    height: 30px;
+}
+
+ .mn-movie-modify-table th {
+   width: 75px;
+ }
+
+ .modify-movietext{
+    resize : none;
+    height: 300px;
+    width: 98.5%;
+
+    /* input박스 속성 */
+    border: #d9d9d9 solid 1px;  
+
+    /* 글자 속성 */
+    font-size: 14px;  /* 글자 크기 */
+    color: #8a8a8a; /* 글자 색 */
+    letter-spacing: 0px;  /* 글자 사이 간격 */
+    line-height: 22px;    /* 줄 높이 속성 */
+    text-align: justify;  /* 문자 정렬 */
+
+    /* 글자 속성 */
+ }
+ .mn-movie-modify-table input {
+    height: 25px;
+    width: 99%;
+
+    border: #d9d9d9 solid 1px;
+   
+
+    /* 글자 속성 */
+    font-size: 14px;  /* 글자 크기 */
+    color: #8a8a8a; /* 글자 색 */
+    letter-spacing: 0px;  /* 글자 사이 간격 */
+    text-align: left;  /* 문자 정렬 */
+    text-indent: 5px;   /* 들여쓰기 */
+
+    /* 글자 속성 */
+
+  
+}
+/* 개봉, 종영일자 */
+.modify-screening-date > input{
+      width: 45.1%;
+}
+/* 개봉, 종영일자 */
+
+ /* 테이블  */
+
+
+/* 하단 버튼 설정 */
+
+.modify-submit-wapper{
+   text-align: center; 
+   margin-top: 15px;
+}
+
+.modify-submit-wapper > input {
+  width: 120px;
+  height: 29px;
+  background-color: #797979;
+  color: white;
+  line-height: 28px !important;
+  border-style: none;  
+}
+
+
+/* //하단 버튼 설정 */

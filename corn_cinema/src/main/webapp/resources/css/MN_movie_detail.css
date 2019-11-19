@@ -1,0 +1,100 @@
+/* �쁺�솕 �긽�꽭 �럹�씠吏� ���씠��  */
+
+.mn-movie-detail-board-title{
+  margin: 60px 0px 40px 0px;
+  font-size: 25px;
+}
+
+/* //�쁺�솕 �긽�꽭 �럹�씠吏� ���씠��  */
+
+
+ /* �뀒�씠釉�  */
+ .mn-movie-detail-table{
+    line-height: 1.5em;
+    width: 750px;
+    margin :0 auto;
+    text-align: right;
+ }
+
+.detail-search-grade {
+    width: 660px;
+    height: 30px;
+}
+
+ .mn-movie-detail-table th {
+   width: 75px;
+ }
+
+ .detail-movietext{
+    resize : none;
+    height: 300px;
+    width: 98.5%;
+
+    /* input諛뺤뒪 �냽�꽦 */
+    border: #d9d9d9 solid 1px;  
+    background-color: white;
+
+    /* 湲��옄 �냽�꽦 */
+    font-size: 14px;  /* 湲��옄 �겕湲� */
+    color: #8a8a8a; /* 湲��옄 �깋 */
+    letter-spacing: 0px;  /* 湲��옄 �궗�씠 媛꾧꺽 */
+    line-height: 22px;    /* 以� �넂�씠 �냽�꽦 */
+    text-align: justify;  /* 臾몄옄 �젙�젹 */
+
+    /* 湲��옄 �냽�꽦 */
+ }
+ .mn-movie-detail-table input {
+    height: 25px;
+    width: 99%;
+
+    border: #d9d9d9 solid 1px;
+    background-color: white;
+
+    /* 湲��옄 �냽�꽦 */
+    font-size: 14px;  /* 湲��옄 �겕湲� */
+    color: #8a8a8a; /* 湲��옄 �깋 */
+    letter-spacing: 0px;  /* 湲��옄 �궗�씠 媛꾧꺽 */
+    text-align: left;  /* 臾몄옄 �젙�젹 */
+    text-indent: 5px;   /* �뱾�뿬�벐湲� */
+
+    /* 湲��옄 �냽�꽦 */
+
+  
+}
+/* 媛쒕큺, 醫낆쁺�씪�옄 */
+.detail-screening-date > input{
+    width: 42.6%;
+}
+/* 媛쒕큺, 醫낆쁺�씪�옄 */
+
+ /* �뀒�씠釉�  */
+
+
+/* �븯�떒 踰꾪듉 �꽕�젙 */
+
+.detail-submit-wapper{
+   text-align: center; 
+   margin-top: 15px;
+}
+
+.detail-submit-wapper > input {
+  width: 120px;
+  height: 29px;
+  background-color: #797979;
+  color: white;
+  line-height: 28px !important;
+  border-style: none;  
+}
+
+.detail-submit-wapper  a {
+  width: 120px;
+  height: 29px;
+  display: inline-block;
+  background-color: #797979;
+  color: white;
+  line-height: 28px !important;
+  border-style: none;  
+}
+
+
+/* //�븯�떒 踰꾪듉 �꽕�젙 */
