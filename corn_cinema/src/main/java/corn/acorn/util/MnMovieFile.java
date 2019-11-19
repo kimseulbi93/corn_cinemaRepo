@@ -35,6 +35,7 @@ public class MnMovieFile {
 		String File_Ext = null;  //확장자 처리
 		String view_path = null;
 		String view_name_key = null;
+		//안녕하세요
 		
 		
 		/* 파일 저장 경로 설정 */
